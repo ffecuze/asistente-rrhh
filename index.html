@@ -321,15 +321,15 @@
 </header>
 
 <div class="categories">
-  <button class="cat-chip" onclick="sendQuick('vacaciones días derecho')">🌴Vacaciones</button>
-  <button class="cat-chip" onclick="sendQuick('décimo tercer sueldo')">💰Décimo tercero</button>
-  <button class="cat-chip" onclick="sendQuick('décimo cuarto escolar')">💰Décimo cuarto</button>
-  <button class="cat-chip" onclick="sendQuick('afiliar IESS aviso')">🏥IESS</button>
-  <button class="cat-chip" onclick="sendQuick('liquidación laboral')">📄Liquidación</button>
-  <button class="cat-chip" onclick="sendQuick('horas extras límite')">⏱Horas extras</button>
-  <button class="cat-chip" onclick="sendQuick('registrar contrato plazo')">📋Contratos</button>
-  <button class="cat-chip" onclick="sendQuick('utilidades porcentaje')">📊Utilidades</button>
-  <button class="cat-chip" onclick="sendQuick('Ghestor colaborador módulo')">💻Intermix</button>
+  <button class="cat-chip" onclick="sendQuick('vacaciones días derecho')">Vacaciones</button>
+  <button class="cat-chip" onclick="sendQuick('décimo tercer sueldo')">Décimo tercero</button>
+  <button class="cat-chip" onclick="sendQuick('décimo cuarto escolar')">Décimo cuarto</button>
+  <button class="cat-chip" onclick="sendQuick('afiliar IESS aviso')">IESS</button>
+  <button class="cat-chip" onclick="sendQuick('liquidación laboral')">Liquidación</button>
+  <button class="cat-chip" onclick="sendQuick('horas extras límite')">Horas extras</button>
+  <button class="cat-chip" onclick="sendQuick('registrar contrato plazo')">Contratos</button>
+  <button class="cat-chip" onclick="sendQuick('utilidades porcentaje')">Utilidades</button>
+  <button class="cat-chip" onclick="sendQuick('Ghestor colaborador módulo')">Intermix</button>
 </div>
 
 <div id="messages">
@@ -379,10 +379,8 @@
 </footer>
 
 <script>
-// ============================================================
-// PEGA TU NUEVA API KEY DE ANTHROPIC AQUÍ
-const ANTHROPIC_KEY = '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';
-// ============================================================
+// API Key guardada de forma segura en Netlify Environment Variables
+// No se necesita ninguna clave aquí
 
 const FAQ = [
   {c:"Vacaciones",q:"¿Cuántos días de vacaciones tengo derecho al año?",a:"Todo trabajador tiene derecho a gozar anualmente de un período ininterrumpido de quince (15) días de descanso, los cuales son remunerados. Este período incluye fines de semana. (Art. 69 C.T.)",k:["vacaciones","días","derecho","año","cuántos","15","período"]},
@@ -534,13 +532,10 @@ async function sendMessage() {
   conversationHistory.push({ role: 'user', content: text });
   showTyping(true);
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/.netlify/functions/chat', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5',
